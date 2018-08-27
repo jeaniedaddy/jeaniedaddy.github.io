@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="jeaniedaddy">
 <meta property="og:description" content="원리 PDA의 네트워크 연결시 PDA는 DHCP에 hostName을 전달 DHCP는 해당 PDA에  Dynamic IP address 부여. 네트워크 접속 성공후 PDA가 veles2pda에 접속시 IP 정보만 전달. Veles2pda은 이런  IP를 가진 Device가 접속되었다고 aJax를 통해 asset web app의 REST API를 POST Ca">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-27T16:04:07.402Z">
+<meta property="og:updated_time" content="2018-08-27T16:56:04.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mobile Status Guide">
 <meta name="twitter:description" content="원리 PDA의 네트워크 연결시 PDA는 DHCP에 hostName을 전달 DHCP는 해당 PDA에  Dynamic IP address 부여. 네트워크 접속 성공후 PDA가 veles2pda에 접속시 IP 정보만 전달. Veles2pda은 이런  IP를 가진 Device가 접속되었다고 aJax를 통해 asset web app의 REST API를 POST Ca">
@@ -363,7 +363,7 @@
       
 
       
-        <h3 id="원리"><a href="#원리" class="headerlink" title="원리"></a>원리</h3><ol>
+        <h2 id="원리"><a href="#원리" class="headerlink" title="원리"></a>원리</h2><ol>
 <li>PDA의 네트워크 연결시 PDA는 DHCP에 hostName을 전달</li>
 <li>DHCP는 해당 PDA에  Dynamic IP address 부여.</li>
 <li>네트워크 접속 성공후 PDA가 veles2pda에 접속시 IP 정보만 전달.</li>
@@ -371,13 +371,13 @@
 <li>Asset web app은 이 veles2pda에서 전달한 IP 정보로 hostName을 네트워크에 문의하여 찾아오고 가지고 있는 HostName리스트를 참조하여 로그를 기록한다.</li>
 <li>DHCP lease 기간동안은 dl Dynamic IP 와 hostName이 Key vs Value처럼 look up이 가능하다.</li>
 </ol>
-<h2 id="추가업데이트-계획"><a href="#추가업데이트-계획" class="headerlink" title="추가업데이트 계획"></a>추가업데이트 계획</h2><ul>
+<h2 id="추가-업데이트-계획"><a href="#추가-업데이트-계획" class="headerlink" title="추가 업데이트 계획"></a>추가 업데이트 계획</h2><ul>
 <li>각Location별로 변경이 필요한 부분은 고쳐서 쓰세요              </li>
 <li>관련 파일 : (\HKE.LOCAL\GLOVIS)  -&gt;  ~\IT\ZZ00.SteveNo</li>
 <li>현재 배포판으로 Required기능구현 완료.</li>
 <li>Security(Login) 및 Graphical Presentation 2개 정도 추가 배포 할 수 있슴.</li>
 </ul>
-<h2 id="설치가이드"><a href="#설치가이드" class="headerlink" title="설치가이드"></a>설치가이드</h2><ol>
+<h2 id="설치-가이드"><a href="#설치-가이드" class="headerlink" title="설치 가이드"></a>설치 가이드</h2><ol>
 <li>Project name : asset</li>
 <li>Project description<ol>
 <li>Java(1.8) Spring Boot Project</li>
@@ -431,12 +431,10 @@
 </li>
 </ol>
 </li>
-<li><p>How to set PDA.</p>
-<ol>
+</ol>
+<h2 id="How-to-set-PDA"><a href="#How-to-set-PDA" class="headerlink" title="How to set PDA."></a>How to set PDA.</h2><ol>
 <li>Go to control panel, change computer name as you want</li>
 <li>Do cold reset and connect local network and check if hostname of the PDA is showing in DHCP, WiFi Controller ….</li>
-</ol>
-</li>
 </ol>
 
       
@@ -620,7 +618,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#원리"><span class="nav-number">1.</span> <span class="nav-text">원리</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#추가업데이트-계획"><span class="nav-number"></span> <span class="nav-text">추가업데이트 계획</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#설치가이드"><span class="nav-number"></span> <span class="nav-text">설치가이드</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#원리"><span class="nav-number">1.</span> <span class="nav-text">원리</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#추가-업데이트-계획"><span class="nav-number">2.</span> <span class="nav-text">추가 업데이트 계획</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#설치-가이드"><span class="nav-number">3.</span> <span class="nav-text">설치 가이드</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-set-PDA"><span class="nav-number">4.</span> <span class="nav-text">How to set PDA.</span></a></li></ol></div>
             
 
           </div>
