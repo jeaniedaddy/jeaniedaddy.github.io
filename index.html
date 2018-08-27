@@ -146,7 +146,7 @@
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta custom-logo">
     
 
     <div class="custom-logo-site-title">
@@ -183,6 +183,36 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
           </a>
         </li>
       
@@ -229,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/08/25/new-page/">
+    <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/08/27/Mobile-Status-Guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Steve No">
@@ -248,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/25/new-page/" itemprop="url">new page</a></h1>
+                <a class="post-title-link" href="/2018/08/27/Mobile-Status-Guide/" itemprop="url">Mobile Status Guide</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-25T21:57:04-04:00">
-                2018-08-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T11:37:32-04:00">
+                2018-08-27
               </time>
             
 
@@ -271,6 +301,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/work/" itemprop="url" rel="index">
+                    <span itemprop="name">work</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -279,9 +331,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/25/new-page/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/27/Mobile-Status-Guide/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/25/new-page/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/27/Mobile-Status-Guide/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -311,7 +363,244 @@
       
         
           
+            <h3 id="원리"><a href="#원리" class="headerlink" title="원리"></a>원리</h3><ol>
+<li>PDA의 네트워크 연결시 PDA는 DHCP에 hostName을 전달</li>
+<li>DHCP는 해당 PDA에  Dynamic IP address 부여.</li>
+<li>네트워크 접속 성공후 PDA가 veles2pda에 접속시 IP 정보만 전달.</li>
+<li>Veles2pda은 이런  IP를 가진 Device가 접속되었다고 aJax를 통해 asset web app의 REST API를 POST Call 한다.</li>
+<li>Asset web app은 이 veles2pda에서 전달한 IP 정보로 hostName을 네트워크에 문의하여 찾아오고 가지고 있는 HostName리스트를 참조하여 로그를 기록한다.</li>
+<li>DHCP lease 기간동안은 dl Dynamic IP 와 hostName이 Key vs Value처럼 look up이 가능하다.</li>
+</ol>
+<h2 id="추가업데이트-계획"><a href="#추가업데이트-계획" class="headerlink" title="추가업데이트 계획"></a>추가업데이트 계획</h2><ul>
+<li>각Location별로 변경이 필요한 부분은 고쳐서 쓰세요              </li>
+<li>관련 파일 : (\HKE.LOCAL\GLOVIS)  -&gt;  ~\IT\ZZ00.SteveNo</li>
+<li>현재 배포판으로 Required기능구현 완료.</li>
+<li>Security(Login) 및 Graphical Presentation 2개 정도 추가 배포 할 수 있슴.</li>
+</ul>
+<h2 id="설치가이드"><a href="#설치가이드" class="headerlink" title="설치가이드"></a>설치가이드</h2><ol>
+<li>Project name : asset</li>
+<li>Project description<ol>
+<li>Java(1.8) Spring Boot Project</li>
+<li>Mongo DB – Spring Data</li>
+<li>Gradle package manager</li>
+<li>Thymeleaf template engine</li>
+<li>Swagger REST API Doc</li>
+</ol>
+</li>
+<li><p>How to install (DB and WEB on same server)</p>
+<ol>
+<li>Install mongo DB</li>
+<li>Create c:\DATA\DT folder for the DB location</li>
+<li><p>Run mongo db</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir c:\DATA\db</span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"c:\Program Files\MongoDB\Server\4.0\bin"</span></span><br><span class="line">$ mongod</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Clone the project using Git</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/jeaniedaddy/asset.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Use Eclipse, IntelliJ or other IDE as you like</p>
+</li>
+<li><p>How to Run (under “asset folder”)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  gradlew bootRun</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>How to compile (under “asset folder”)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  gradlew build</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Compiled jar will be located ~/asset/build/libs/XXX.jar</p>
+</li>
+<li>How to Run this Jar file on the production server<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  java –jar  XXX.jar</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>Web App is set to use 8090 port : <a href="http://localhost:8090" target="_blank" rel="noopener">http://localhost:8090</a></p>
+</li>
+<li>Web App has 1 REST API for logging<ol>
+<li>Under about tab you can access Swagger-UI page for REST API Doc and test.</li>
+</ol>
+</li>
+<li><p>How to consume REST API from other application</p>
+<ol>
+<li>EX. VELES2PDA (~/veles2pda/menu/top.asp)</li>
+<li><p>Add jquery framework to VELES2PDA (file will be provided)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"/VELES2PDA/libs/jquery-1.5.min.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>For cross servers add configuration for jQuery</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=<span class="string">"javascript"</span>&gt;</span><br><span class="line">jQuery.support.cors = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Using jQuery.ajax, consume REST API of this project</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">   $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> ip_address = <span class="string">'&lt;%=Request.servervariables("REMOTE_ADDR")%&gt;'</span>;</span><br><span class="line">	    <span class="keyword">var</span> usr_id = <span class="string">'&lt;%=sUserID%&gt;'</span>;</span><br><span class="line">		<span class="keyword">var</span> a_url=<span class="string">"http://10.10.0.10:8090/mobilelog/save?ipAddress="</span>+ip_address+ <span class="string">"&amp;loginId="</span> + usr_id;</span><br><span class="line">		<span class="keyword">var</span> s_data = <span class="string">""</span>;</span><br><span class="line">	    $.ajax(&#123;</span><br><span class="line">		   type: <span class="string">'POST'</span>,</span><br><span class="line">		   url: a_url,</span><br><span class="line">		   data: <span class="string">"&#123;&#125;"</span>,</span><br><span class="line">		   dataType: <span class="string">'text'</span>,</span><br><span class="line">		   success: <span class="function"><span class="keyword">function</span>(<span class="params"> data </span>) </span>&#123;</span><br><span class="line">		   		<span class="comment">//console.log("success");</span></span><br><span class="line">		   		<span class="comment">//alert("success1");</span></span><br><span class="line">		   &#125;,</span><br><span class="line">		   error: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, status, error</span>) </span>&#123;</span><br><span class="line">		      <span class="comment">//console.log(error);</span></span><br><span class="line">		      <span class="comment">//alert(error);</span></span><br><span class="line">		   &#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>How to set PDA.</p>
+<ol>
+<li>Go to control panel, change computer name as you want</li>
+<li>Do cold reset and connect local network and check if hostname of the PDA is showing in DHCP, WiFi Controller ….</li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/08/27/new-page/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steve No">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jeaniedaddy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/27/new-page/" itemprop="url">마크업 연습</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T10:57:04-04:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/일상/" itemprop="url" rel="index">
+                    <span itemprop="name">일상</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/27/new-page/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/27/new-page/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p><img src="/images/2018/08/Steve_Profile.png" alt="aaaa"></p>
+
           
         
       
@@ -413,19 +702,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/githubPage/" itemprop="url" rel="index">
-                    <span itemprop="name">githubPage</span>
+                  <a href="/categories/일상/" itemprop="url" rel="index">
+                    <span itemprop="name">일상</span>
                   </a>
                 </span>
 
@@ -700,7 +978,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -722,7 +1000,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
