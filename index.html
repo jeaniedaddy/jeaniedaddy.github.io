@@ -259,6 +259,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/09/22/OracleDB-Cold-Backup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steve No">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/Steve_Profile.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steve in Philly">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/22/OracleDB-Cold-Backup/" itemprop="url">OracleDB Cold Backup</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-22T18:43:29-04:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/work/" itemprop="url" rel="index">
+                    <span itemprop="name">work</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/22/OracleDB-Cold-Backup/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/22/OracleDB-Cold-Backup/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="백업대상"><a href="#백업대상" class="headerlink" title="백업대상"></a>백업대상</h2><ol>
+<li><p>백업 대상</p>
+<ol>
+<li>Data File</li>
+<li>실제 데이터가 저장되어 있는 파일</li>
+<li>현재 사용중인 Data File을 확인 후, 자주 백업 받아야 함<br>1.조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT name, status FROM v$datafile ;</span><br><span class="line"></span><br><span class="line">SELECT a.file#, a.name, b.name tsname, a.status</span><br><span class="line">    FROM v$datafile a, v$tablespace b</span><br><span class="line">    WHERE a.ts# = b.ts# ;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>Control File</p>
+<ol>
+<li>DB를 운영하는데 중요한 내용이 들어있는 파일</li>
+<li>현재 사용중인 Control File만 쓸 수 있음, 과거에 썼던 파일은 백업 받아도 소용 없음<br>1.조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM v$controlfile ;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>Redo Log File</p>
+<ol>
+<li>데이터에 변경이 일어난 내용을 복구에 사용하기 위해 저장하고 있는 파일</li>
+<li>조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT a.group#, a.member, b.bytes/1024/1024 MB, b.archived, b.status</span><br><span class="line">    FROM v$logfile a, v$log b</span><br><span class="line">    WHERE a.group# = b.group#</span><br><span class="line">    ORDER BY 1, 2 ;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>Parameter File</p>
+<ol>
+<li>오라클 서버를 운영하는데 필요한 각종 설정 정보를 저장 하고 있는 파일</li>
+<li>이 파일이 손실되면 오라클 서버가 시작되지 않음</li>
+<li>필수 백업 파일은 아니지만 백업 받아 두는 것이 훨씬 유용</li>
+<li>위치는 $ORACLE_HOME/dbs</li>
+<li>pfile은 initSID.ora / spfile은 spfileSID.ora</li>
+<li>조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show parameter spfile ;</span><br><span class="line">show parameters;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>Password File</p>
+<ol>
+<li>암호파일, sys계정의 암호를 저장하는 일반 파일 </li>
+<li>파라미터 파일과 동일한 디렉토리에 저장되어 있음 = $ORACLE_HOME/dbs</li>
+<li>이름은 orapwSID</li>
+<li>역시 필수 백업 파일은 아니지만 백업을 권장</li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/08/27/Mobile-Status-Guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -521,7 +716,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
