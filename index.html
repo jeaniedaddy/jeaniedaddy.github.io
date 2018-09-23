@@ -363,15 +363,17 @@
       
         
           
-            <h2 id="백업대상"><a href="#백업대상" class="headerlink" title="백업대상"></a>백업대상</h2><h2 id="백업-대상"><a href="#백업-대상" class="headerlink" title="백업 대상"></a>백업 대상</h2><ol>
+            <h2 id="백업-대상"><a href="#백업-대상" class="headerlink" title="백업 대상"></a>백업 대상</h2><ol>
 <li>Data File</li>
 <li>실제 데이터가 저장되어 있는 파일</li>
-<li>현재 사용중인 Data File을 확인 후, 자주 백업 받아야 함<br>1.조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT name, status FROM v$datafile ;</span><br><span class="line"></span><br><span class="line">SELECT a.file#, a.name, b.name tsname, a.status</span><br><span class="line">    FROM v$datafile a, v$tablespace b</span><br><span class="line">    WHERE a.ts# = b.ts# ;</span><br></pre></td></tr></table></figure>
+<li>현재 사용중인 Data File을 확인 후, 자주 백업 받아야 함</li>
+<li>조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT name, status FROM v$datafile ;</span><br><span class="line"></span><br><span class="line">SELECT a.file#, a.name, b.name tsname, a.status</span><br><span class="line">    FROM v$datafile a, v$tablespace b</span><br><span class="line">    WHERE a.ts# = b.ts# ;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="ontrol-File"><a href="#ontrol-File" class="headerlink" title="ontrol File"></a>ontrol File</h2><ol>
 <li>DB를 운영하는데 중요한 내용이 들어있는 파일</li>
-<li>현재 사용중인 Control File만 쓸 수 있음, 과거에 썼던 파일은 백업 받아도 소용 없음<br>1.조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM v$controlfile ;</span><br></pre></td></tr></table></figure>
+<li>현재 사용중인 Control File만 쓸 수 있음, 과거에 썼던 파일은 백업 받아도 소용 없음</li>
+<li>조회방법<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM v$controlfile ;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="Redo-Log-File"><a href="#Redo-Log-File" class="headerlink" title="Redo Log File"></a>Redo Log File</h2><ol>
