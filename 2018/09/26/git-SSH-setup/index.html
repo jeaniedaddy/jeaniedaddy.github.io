@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="work,SSH," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="How to use Hexo and deploy to GitHub Pages https://github.com/hexojs/hexo https://hexo.io/docs/  1. Install Hexo12345678$ ls -al ~/.ssh$ ssh-keygen -t rsa -b 4096 -C &amp;apos;name@email.com&amp;apos;$ ls -al">
+<meta name="description" content="1. how to configure SSH12345678$ ls -al ~/.ssh$ ssh-keygen -t rsa -b 4096 -C &amp;apos;name@email.com&amp;apos;$ ls -al ~/.ssh$ eval &amp;quot;$(ssh-agent -s)&amp;quot;$ ssh-add ~/.ssh/id_rsa$ pbcopy &amp;lt; ~/.ssh/id_r">
+<meta name="keywords" content="work,SSH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git SSH setup">
 <meta property="og:url" content="http://jeaniedaddy.github.io/2018/09/26/git-SSH-setup/index.html">
 <meta property="og:site_name" content="Steve in Philly">
-<meta property="og:description" content="How to use Hexo and deploy to GitHub Pages https://github.com/hexojs/hexo https://hexo.io/docs/  1. Install Hexo12345678$ ls -al ~/.ssh$ ssh-keygen -t rsa -b 4096 -C &amp;apos;name@email.com&amp;apos;$ ls -al">
+<meta property="og:description" content="1. how to configure SSH12345678$ ls -al ~/.ssh$ ssh-keygen -t rsa -b 4096 -C &amp;apos;name@email.com&amp;apos;$ ls -al ~/.ssh$ eval &amp;quot;$(ssh-agent -s)&amp;quot;$ ssh-add ~/.ssh/id_rsa$ pbcopy &amp;lt; ~/.ssh/id_r">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-26T20:52:06.214Z">
+<meta property="og:updated_time" content="2018-09-26T20:54:51.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git SSH setup">
-<meta name="twitter:description" content="How to use Hexo and deploy to GitHub Pages https://github.com/hexojs/hexo https://hexo.io/docs/  1. Install Hexo12345678$ ls -al ~/.ssh$ ssh-keygen -t rsa -b 4096 -C &amp;apos;name@email.com&amp;apos;$ ls -al">
+<meta name="twitter:description" content="1. how to configure SSH12345678$ ls -al ~/.ssh$ ssh-keygen -t rsa -b 4096 -C &amp;apos;name@email.com&amp;apos;$ ls -al ~/.ssh$ eval &amp;quot;$(ssh-agent -s)&amp;quot;$ ssh-add ~/.ssh/id_rsa$ pbcopy &amp;lt; ~/.ssh/id_r">
 
 
 
@@ -302,6 +303,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/work/" itemprop="url" rel="index">
+                    <span itemprop="name">work</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -340,11 +363,7 @@
       
 
       
-        <h2 id="How-to-use-Hexo-and-deploy-to-GitHub-Pages"><a href="#How-to-use-Hexo-and-deploy-to-GitHub-Pages" class="headerlink" title="How to use Hexo and deploy to GitHub Pages"></a>How to use Hexo and deploy to GitHub Pages</h2><ul>
-<li><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">https://github.com/hexojs/hexo</a></li>
-<li><a href="https://hexo.io/docs/" target="_blank" rel="noopener">https://hexo.io/docs/</a></li>
-</ul>
-<h3 id="1-Install-Hexo"><a href="#1-Install-Hexo" class="headerlink" title="1. Install Hexo"></a>1. Install Hexo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al ~/.ssh</span><br><span class="line">$ ssh-keygen -t rsa -b 4096 -C &apos;name@email.com&apos;</span><br><span class="line">$ ls -al ~/.ssh</span><br><span class="line">$ eval &quot;$(ssh-agent -s)&quot;</span><br><span class="line">$ ssh-add ~/.ssh/id_rsa</span><br><span class="line">$ pbcopy &lt; ~/.ssh/id_rsa.pub</span><br><span class="line">$ ssh -T git@github.com</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+        <h3 id="1-how-to-configure-SSH"><a href="#1-how-to-configure-SSH" class="headerlink" title="1. how to configure SSH"></a>1. how to configure SSH</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ls -al ~/.ssh</span><br><span class="line">$ ssh-keygen -t rsa -b 4096 -C &apos;name@email.com&apos;</span><br><span class="line">$ ls -al ~/.ssh</span><br><span class="line">$ eval &quot;$(ssh-agent -s)&quot;</span><br><span class="line">$ ssh-add ~/.ssh/id_rsa</span><br><span class="line">$ pbcopy &lt; ~/.ssh/id_rsa.pub</span><br><span class="line">$ ssh -T git@github.com</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
 <p>Adding a new SSH key to Github account</p>
 
       
@@ -360,6 +379,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/work/" rel="tag"># work</a>
+          
+            <a href="/tags/SSH/" rel="tag"># SSH</a>
+          
+        </div>
       
 
       
@@ -491,7 +518,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -540,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-use-Hexo-and-deploy-to-GitHub-Pages"><span class="nav-number">1.</span> <span class="nav-text">How to use Hexo and deploy to GitHub Pages</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Install-Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">1. Install Hexo</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-how-to-configure-SSH"><span class="nav-number">1.</span> <span class="nav-text">1. how to configure SSH</span></a></li></ol></div>
             
 
           </div>
