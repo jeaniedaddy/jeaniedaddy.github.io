@@ -259,6 +259,296 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/10/30/Oracle-통계정보-조회및-통계-갱신/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steve No">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/Steve_Profile.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steve in Philly">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/30/Oracle-통계정보-조회및-통계-갱신/" itemprop="url">Oracle 통계정보 조회및 통계 갱신</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-30T10:34:45-04:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/30/Oracle-통계정보-조회및-통계-갱신/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/10/30/Oracle-통계정보-조회및-통계-갱신/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>– 해당 스키마에 해당하는 테이블과 테이블 스페이스 조회<br>SELECT OWNER, TABLE_NAME, TABLESPACE_NAME FROM DBA_TABLES WHERE OWNER = ‘스키마명’;</p>
+<p>– 해당 스키마에 해당하는 테이블의 통계정보 조회<br>SELECT TABLE_NAME, NUM_ROWS, CHAIN_CNT, BLOCKS, EMPTY_BLOCKS, AVG_SPACE, AVG_ROW_LEN FROM DBA_TABLES WHERE OWNER = ‘스키마명’;</p>
+<p>– 해당 스키마에 해당하는 인덱스의 통계정보 조회<br>SELECT TABLE_NAME, INDEX_NAME, STATUS, NUM_ROWS, LEAF_BLOCKS, BLEVEL FROM DBA_INDEXES WHERE OWNER = ‘스키마명’;</p>
+<p>– 테이블의 통계정보 갱신<br>EXEC DBMS_STATS.GATHER_TABLE_STATS(‘스키마명’, ‘테이블명’);</p>
+<p>– 스키마안의 모든 세그먼트에 대한 통계정보 갱신<br>EXEC DBMS_STATS.GATHER_SCHEMA_STATS(‘스키마명’);</p>
+<p>– DBMS_STATS 패키지로 갱신되지 않는 테이블 통계 정보 갱신<br>ANALYZE TABLE 스키마명.테이블명 COMPUTE STATISTICS;<br>​<br>– DBMS_STATS 패키지로 갱신되지 않는 테이블 통계 정보 갱신(쿼리 생성)<br>SELECT ‘ANALYZE TABLE 스키마명.’ || TABLE_NAME || ‘ COMPUTE STATISTICS;’ FROM DBA_TABLES WHERE OWNER = ‘스키마명’;</p>
+<p>– DBMS_STATS 패키지로 갱신되지 않는 인덱스 통계정보 갱신<br>ANALYZE INDEX 스키마명.인덱스명 VALIDATE STRUCTURE;<br>SELECT NAME, BLOCKS, LF_ROWS, DEL_LF_ROWS FROM INDEX_STATS;<br>​<br>– DBMS_STATS 패키지로 갱신되지 않는 인덱스 통계정보 갱신(쿼리 생성)<br>SELECT ‘ANALYZE INDEX 스키마명.’ || INDEX_NAME || ‘ VALIDATE STRUCTURE;’ FROM DBA_INDEXES WHERE OWNER = ‘스키마명’;<br>[출처] [오라클] 통계정보 조회 및 통계 갱신|작성자 그늘</p>
+<p>출처: <a href="http://calsifer.tistory.com/245" target="_blank" rel="noopener">http://calsifer.tistory.com/245</a> [Maybe…]</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/10/27/How-to-shutdown-start-Oracle-DB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steve No">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/Steve_Profile.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steve in Philly">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/27/How-to-shutdown-start-Oracle-DB/" itemprop="url">How to shutdown/start Oracle DB</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-27T10:12:35-04:00">
+                2018-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/27/How-to-shutdown-start-Oracle-DB/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/10/27/How-to-shutdown-start-Oracle-DB/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Oracle-서버-정지-재가동"><a href="#Oracle-서버-정지-재가동" class="headerlink" title="Oracle 서버 정지/재가동"></a>Oracle 서버 정지/재가동</h2><ol>
+<li><p>먼저 접속된 유저를 끊는다(리스너 종료)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$lsnrctl stop</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sysdba 권한으로 접속</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sqlplus &quot;/as sysdba&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Oracle 종료</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt;shutdown</span><br><span class="line">SQL&gt;shutdown abort</span><br><span class="line">SQL&gt;shutdown immediate</span><br></pre></td></tr></table></figure>
+<ul>
+<li>추천 방법 : shutdown immediate한후 종료가 안될시 새창을 띠워서 shutdown abort 시킴</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>오라클 재가동</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt;startup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>리스너 시작</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$lsnrctl start</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="8i일경우"><a href="#8i일경우" class="headerlink" title="8i일경우"></a>8i일경우</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$sqlplus /nolog </span><br><span class="line">SQL&gt;connect / as sysdba </span><br><span class="line">SQL&gt;shutdown immediate; </span><br><span class="line">SQL&gt;startup</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2018/09/27/publish-to-heroku/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1163,7 +1453,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
