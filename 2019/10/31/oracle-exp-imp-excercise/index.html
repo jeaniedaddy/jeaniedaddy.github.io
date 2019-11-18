@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="export형식 :  EXP KEYWORD=값 또는 KEYWORD=(값1,값2,…,값N) 예    :  EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR)           또는 T1이 분할된 테이블인 경우 TABLES=(T1:P1,T1:P2) 예 ) exp scott/tiger file=emp.dmp log=emp.log">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oracle-exp-imp-excercise">
+<meta property="og:url" content="http://jeaniedaddy.github.io/2019/10/31/oracle-exp-imp-excercise/index.html">
+<meta property="og:site_name" content="Steve in Philly">
+<meta property="og:description" content="export형식 :  EXP KEYWORD=값 또는 KEYWORD=(값1,값2,…,값N) 예    :  EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR)           또는 T1이 분할된 테이블인 경우 TABLES=(T1:P1,T1:P2) 예 ) exp scott/tiger file=emp.dmp log=emp.log">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-31T18:25:57.637Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oracle-exp-imp-excercise">
+<meta name="twitter:description" content="export형식 :  EXP KEYWORD=값 또는 KEYWORD=(값1,값2,…,값N) 예    :  EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR)           또는 T1이 분할된 테이블인 경우 TABLES=(T1:P1,T1:P2) 예 ) exp scott/tiger file=emp.dmp log=emp.log">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jeaniedaddy.github.io/2019/10/31/oracle-exp-imp-excercise/"/>
+
+
+
+
+
+  <title>oracle-exp-imp-excercise | Steve in Philly</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Steve in Philly</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jeaniedaddy.github.io/2019/10/31/oracle-exp-imp-excercise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steve No">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/Steve_Profile.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steve in Philly">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">oracle-exp-imp-excercise</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-31T13:25:27-05:00">
+                2019-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/10/31/oracle-exp-imp-excercise/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/10/31/oracle-exp-imp-excercise/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="export"><a href="#export" class="headerlink" title="export"></a>export</h2><p>형식 :  EXP KEYWORD=값 또는 KEYWORD=(값1,값2,…,값N)</p>
+<p>예    :  EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR)<br>           또는 T1이 분할된 테이블인 경우 TABLES=(T1:P1,T1:P2)</p>
+<p>예 ) exp scott/tiger file=emp.dmp log=emp.log tables=emp direct=y<br>예 ) exp system/oracle file=full.dmp full=y indexes=n triggers=n<br>예 ) exp system/oracle file=scott.dmp owner=scott rows=n</p>
+<p>option</p>
+<p>수많은 exp 옵션들… 다 외울순 없다..</p>
+<p>exp help=y</p>
+<p>하게 되면 친절히 설명해주니 기억이 나지 않을시 참고 하도록 하자</p>
+<p>scott/tiger                           : db 유저/password<br>full                                       : 해당 db 전체 데이터 추출 여부(기본값 N)<br>buffer                                  : 작업 단위의 크기 설정<br>owner                                  :  db 유저별 오브젝트 추출 설정<br>file                                       : 추출한 데이터를 저장할 파일 이름 설정<br>tables                                  : 데이터를 추출할 대상 테이블 설정<br>compress                            :  익스텐트 통합 여부를 지정(기본값 Y)   필수로 N 으로 하는것이 좋다<br>grants                                  : 오브젝트 권한 설정에 대한 정보 추출 여부(기본값 Y)<br>indexes                                : 인덱스 스크립트 추출 여부(기본값 Y)<br>direct                                   : 직접 경로로 export 수행 여부(기본값 N)<br>triggers                                  : 트리거 정보 추출 여부(기본값 Y)<br>log                                      : 로그를 저장할 파일 지정<br>rows                                     : 테이블의 데이터 추출 여부(기본값 Y)<br>consistent                             : 대상 테이블의 읽기 일관성 지정(기본값 N)<br>constraints                            : 제약 조건의 추출 여부(기본값 Y)<br>parfile                                 :  파라메터 파일을 export시 적용<br>INCTYPE                               : 증분 엑스포트 유형<br>RECORD                               : 증분 엑스포트 추적(기본값 Y)</p>
+<p>OBJECT_CONSISTENT            : 객체 엑스포트 동안 읽기 전용으로 설정된 트랜잭션(N)<br>FEEDBACK                            : 매 x행마다 진행 상황 표시(0)<br>FILESIZE                             : 각 덤프 파일의 최대 크기<br>FLASHBACK_SCN                   : 세션 스냅샷을 되돌리는 설정에 사용된 SCN<br>FLASHBACK_TIME                  : 지정된 시간에 가장 가까운 SCN을 가져오는 데 사용된 시간<br>QUERY                                 : 테이블의 부분 집합을 엑스포트하는 데 사용된 select 절<br>RESUMABLE                          : 공간 관련 오류가 발생하면 일시 중지됨(N)<br>RESUMABLE_NAME                : 재개 가능한 명령문을 식별하는 데 사용된 텍스트 문자열<br>RESUMABLE_TIMEOUT            : RESUMABLE 대기 시간<br>TTS_FULL_CHECK                   : TTS에 대한 전체 또는 부분 종속성 검사 수행<br>TABLESPACES                     : 엑스포트할 테이블스페이스 목록<br>TRANSPORT_TABLESPACE : 이동 가능한 테이블스페이스 메타 데이터 엑스포트(N)<br>TEMPLATE                             : iAS 모드 엑스포트를 호출하는 템플리트 이름</p>
+<p><strong> compress 옵션을 Y로 설정 하여 사용하면 여러개의 익스텐트가 하나의 큰 익스텐트로 통합된다<br>   실제 운영에서는 익스텐트를 통합하는것은 좋지 않으므로 반드시 compress 옵션을 N로 설정 한다.
+</strong> direct 옵션을 사용하면 SGA를 사용하지 않고 export/import 하게 되며<br>   추출 및 적재 작업시 보다 빠른 속도를 보장 받는다.<br>** comsistent 옵션을 Y로 설정하면 export를 수행한 시점의 데이터를 추출한다.<br>   export 중 변경된 데이터는 언두 데이터를 이용해서 이전 값을 추출한다.<br>   따라서 ‘snap shot too old’ 에러가 발생하기 쉽다.</p>
+<h2 id="export-작업시-주의-사항"><a href="#export-작업시-주의-사항" class="headerlink" title="export 작업시 주의 사항"></a>export 작업시 주의 사항</h2><p><strong> full, ower 및 tables 옵션은 동시 사용 불가
+</strong> direct=Y인 경우 consistent=y로 설정 불가<br>** full=Y로 expor를 수행하기 위해서는 exp_full_database 권한 필요</p>
+<p>—– 추출 파일의 크기를 확인하는 SQL</p>
+<p>SQL&gt; select sum(bytes)/1024/1024<br>     from dba_segments<br>     where segment_name=’TEST’;</p>
+<p>export 작업을 수행 하면 실제 테이블의 크기보다 작게 생성된다.<br>위 SQL을 수행하여 나온 크기만큼 디스크의 크기를 확보하면 export 작업을 수행하는데 충분하다.<br>또한 추출 파일에는 해당 테이블의 인덱스를 생성할 수 있는 정의만 저장하므로 별도의 디스크공간은 필요하지 않다.<br>하지만 import 시에는 실제 인덱스를 생성하므로 인덱스 테이블스페이스에 여유 공간을 확보해야한다.</p>
+<h2 id="import"><a href="#import" class="headerlink" title="import"></a>import</h2><p>– import 순서 : 테이블 생성 &gt; 데이터 적재 &gt; B*트리 인덱스 생성 &gt; 제약조건 &gt; 트리거 및 비트맵 인덱스 생성</p>
+<p>예 ) imp scott/tiger file=emp.dmp log=emp.log tables=emp<br>예 ) system/manager file=full.dmp log=full.log full=y<br>예 ) system/manager file=scott.dmp fromuser=scott touser=mike</p>
+<p>option</p>
+<p>scott/tiger                         : db 유저 / password<br>full                                     : 전체 db에 대해 import 여부(기본값 N)<br>buffer                                 : 작업 단위의 크기 지정<br>fromuser                       : export한 테이블의 소유자 지정<br>touser                                : import되는 테이블의 소유자 지정<br>tables                                : import 대상 테이블 지정<br>ignore                                : import 대상 테이블이 존재할 경우 에러 발생 여부(기본값 N)<br>grants                                 : 권한 적재 여부 지정 (기본값 Y)<br>indexes                             : index 생성 여부(기본값 Y)<br>commit                               : import 수행중 커밋 수행여부,<br>                                           Y로 지정할 경우 buffer 옵션 단위로 커밋 수행(기본값 N)<br>rows                                   : 테이블의 데이터 적재 여부(기본값 Y)<br>log                                     : 로그를 저장할 파일 지정<br>constrainsts                      : 제약 조건 적재 여부(기본값 Y)<br>parfile                                : 파라메터 파일을 지정하여 import 작업시 적용</p>
+<p>SHOW                                 : 파일 목차만 목록 (기본값 N)<br>RECORDLENGTH IO               : 레코드의 길이<br>INCTYPE                              : 증분 임포트 유형<br>DESTROY                             : 테이블스페이스 데이터 파일 겹쳐쓰기(기본값 N)<br>INDEXFILE                          : 지정된 파일에 테이블/인덱스 정보 쓰기<br>SKIP_UNUSABLE_INDEXES     : 사용되지 않은 인덱스들의 유지를 건너뜁니다 (기본값 N)<br>FEEDBACK                           : 매 x행마다 진행 상황 표시(기본값 0)<br>TOID_NOVALIDATE                : 지정된 유형 ID 검증 건너뛰기<br>FILESIZE                            : 각 덤프 파일의 최대 크기<br>STATISTICS                          : 미리 계산된 통계 임포트(항상)<br>RESUMABLE                         : 공간 관련 오류가 발생하면 일시 중지됨(기본값 N)<br>RESUMABLE_NAME               : 재개 가능한 명령문을 식별하는 데 사용되는 텍스트 문자열<br>RESUMABLE_TIMEOUT          : RESUMABLE 대기 시간<br>COMPILE                              : 프로시저, 패키지 및 함수 컴파일(기본값 Y)<br>STREAMS_CONFIGURATION   : 일반 스트림 메타 데이터 임포트(기본값 Y)<br>STREAMS_INSTANTIATION      : 스트림 인스턴스화 메타 데이터 임포트(기본값 N)</p>
+<p>아래의 키워드만이 이동가능한 테이블스페이스에 적용할 수 있다.</p>
+<p>TRANSPORT_TABLESPACE  : 이동가능한 테이블스페이스 메타데이터을 임포트합니다 (기본값 N)<br>TABLESPACES                     : 데이터베이스안에 테이블스페이스가 이동되었습니다<br>DATAFILES                            : 데이터베이스안에 데이터 파일들이 이동되었습니다<br>TTS_OWNERS                          : 이동가능한 테이블스페이스 설정에 데이터를 소우하고 있는 사용자</p>
+<h2 id="import-작업시-주의-사항"><a href="#import-작업시-주의-사항" class="headerlink" title="import 작업시 주의 사항"></a>import 작업시 주의 사항</h2><p><strong> full 옵션과 tables 옵션은 동시 사용 불가
+</strong> full=y 및 touser 옵션을 사용하기 위해서는 imp_fyll_database 권한 필요<br><strong> 적은 양의 데이터 import 경우를 제외하곤 commit 옵션을 Y로 설정 권장.
+</strong> export 시와 동일한 tablespace가 존재하지 않을 경우 유저 default tablespace로 import 된다<br>   system 유저로 import 하게 되면 system tablespace에 일반 유저 세그먼트가 생성 될수 있으므로<br>   반드시 export시 tablespace와 동일한 이름의 tablespace를 생성한 후 작업을 수행해야한다.</p>
+<p>————————- exp/imp 실습 ————————–</p>
+<p>실습 준비 사항</p>
+<p>SQL&gt; create tablespace test datafile ‘D:\ORACLE\PRODUCT\10.2.0\ORADATA\ORCL\TEST1.DBF’ size 1m;</p>
+<p>SQL&gt; alter tablespace test add datafile ‘D:\ORACLE\PRODUCT\10.2.0\ORADATA\ORCL\TEST2.DBF’ size 1m;</p>
+<p>SQL&gt; alter tablespace test add datafile ‘D:\ORACLE\PRODUCT\10.2.0\ORADATA\ORCL\TEST3.DBF’ size 1m;</p>
+<p>SQL&gt; create user orcl identified by orcl<br>  2  default tablespace test;</p>
+<p>SQL&gt; grant connect, resource, select any table to orcl;</p>
+<p>SQL&gt; grant exp_full_database, imp_full_database to orcl;            // exp, imp database 사용시</p>
+<p>SQL&gt; create table orcl.test as select * from scott.emp;</p>
+<p>————————- exp/imp database ————————–</p>
+<h2 id="exp-백업의-이름을-잘-정해야-한다-해당-백업-파일을-언제-누가-보든-쉽게-이해할수있도록-룰을-잘-정해야한다"><a href="#exp-백업의-이름을-잘-정해야-한다-해당-백업-파일을-언제-누가-보든-쉽게-이해할수있도록-룰을-잘-정해야한다" class="headerlink" title="exp 백업의 이름을 잘 정해야 한다. 해당 백업 파일을 언제 누가 보든 쉽게 이해할수있도록 룰을 잘 정해야한다."></a>exp 백업의 이름을 잘 정해야 한다. 해당 백업 파일을 언제 누가 보든 쉽게 이해할수있도록 룰을 잘 정해야한다.</h2><h2 id="exp의-경우-datapump와-다르게-디렉토리-지정이-없다"><a href="#exp의-경우-datapump와-다르게-디렉토리-지정이-없다" class="headerlink" title="exp의 경우 datapump와 다르게 디렉토리 지정이 없다."></a>exp의 경우 datapump와 다르게 디렉토리 지정이 없다.</h2><h2 id="exp-할-대상-경로로-이동해-실행하거나"><a href="#exp-할-대상-경로로-이동해-실행하거나" class="headerlink" title="exp 할 대상 경로로 이동해 실행하거나,"></a>exp 할 대상 경로로 이동해 실행하거나,</h2><h2 id="file-경로명-test-dmp-log-경로명-test-log-와-같이-직접-지정해야한다"><a href="#file-경로명-test-dmp-log-경로명-test-log-와-같이-직접-지정해야한다" class="headerlink" title="file=[ 경로명 ]\test.dmp , log=[ 경로명 ]\test.log 와 같이 직접 지정해야한다."></a>file=[ 경로명 ]\test.dmp , log=[ 경로명 ]\test.log 와 같이 직접 지정해야한다.</h2><p>D:\test&gt;exp orcl/orcl full=y log=test.log file=test.dmp</p>
+<p>엑스포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>D:\test&gt;dir</p>
+<p>2009-04-15  오후 01:12        82,259,968 test.dmp<br>2009-04-15  오후 01:12            61,816 test.log</p>
+<p>D:\test&gt;imp orcl/orcl full=y file=testfull.dmp<br>.<br>.<br>IMP-00015: 객체가 이미 존재하므로 다음 명령이 실패했습니다<br> “CREATE UNDO TABLESPACE “UNDOTBS1” BLOCKSIZE 8192 DATAFILE  ‘D:\ORACLE\PRODU”<br> “CT\10.2.0\ORADATA\ORCL\UNDOTBS01.DBF’ SIZE 62914560       AUTOEXTEND ON NEX”<br> “T 5242880  MAXSIZE 32767M EXTENT MANAGEMENT LOCAL “<br>.<br>.</p>
+<p>########## 완료시 경고성 완료가 될수 있다. 이유? 당연히 DB가 멀쩡히 있기 때문이다.</p>
+<p>########## 작업중 err를 발생할 수도 있다.. 걱정마라 system 관련 parameter 또는 동적 뷰다.</p>
+<p>########## system 관련 데이터까지 모두 날릴순 없지 않은가..</p>
+<p>########## 그럼 어떨때 export/import database를 쓸까??</p>
+<p>########## 마이그레이션 작업할때 쓴다!!!</p>
+<p>D:\test&gt;imp orcl/orcl full=y file=testfull.dmp ignore=y</p>
+<p>엑스포트 파일은 직접 경로를 거쳐 EXPORT:V10.02.01 에 의해 생성되었습니다<br>KO16MSWIN949 문자집합과 AL16UTF16 NCHAR 문자 집합에 임포트가 완성되었습니다<br>. SYSTEM 객체를 SYSTEM(으)로 임포트하는 중입니다<br>. OLAPSYS 객체를 OLAPSYS(으)로 임포트하는 중입니다<br>.<br>.</p>
+<p>————————– exp/imp transport_tablespace ————————–</p>
+<p>같은 환경을 가진 두개 이상의 분산 DB 환경에서 어떤 DB가 가진 여러개의 데이터 파일을 다른 DB로 이동 시키는 기능.</p>
+<p>——- 주의사항</p>
+<h2 id="transport-tablespace를-사용하려면-해당-tablespace를-read-only-시켜야-한다"><a href="#transport-tablespace를-사용하려면-해당-tablespace를-read-only-시켜야-한다" class="headerlink" title="transport_tablespace를 사용하려면 해당 tablespace를 read only 시켜야 한다."></a>transport_tablespace를 사용하려면 해당 tablespace를 read only 시켜야 한다.</h2><h2 id="tablespace내-하나의-특정-데이터-파일만-이동-할수-없다"><a href="#tablespace내-하나의-특정-데이터-파일만-이동-할수-없다" class="headerlink" title="tablespace내 하나의 특정 데이터 파일만 이동 할수 없다."></a>tablespace내 하나의 특정 데이터 파일만 이동 할수 없다.</h2><h2 id="같은-환경을-가진-OS에서만-가능함"><a href="#같은-환경을-가진-OS에서만-가능함" class="headerlink" title="같은 환경을 가진 OS에서만 가능함."></a>같은 환경을 가진 OS에서만 가능함.</h2><h2 id="오라클-8i-이상-사용-가능"><a href="#오라클-8i-이상-사용-가능" class="headerlink" title="오라클 8i 이상 사용 가능."></a>오라클 8i 이상 사용 가능.</h2><h2 id="DB-BLOCK-SIZE-파라메터의-값이-같아야-함"><a href="#DB-BLOCK-SIZE-파라메터의-값이-같아야-함" class="headerlink" title="DB_BLOCK_SIZE 파라메터의 값이 같아야 함."></a>DB_BLOCK_SIZE 파라메터의 값이 같아야 함.</h2><h2 id="같은-언어타입을-사용해야함"><a href="#같은-언어타입을-사용해야함" class="headerlink" title="같은 언어타입을 사용해야함."></a>같은 언어타입을 사용해야함.</h2><h2 id="VARRAY-타입과-중첩-테이블-컬럼이-있는-테이블은-사용할수-없음"><a href="#VARRAY-타입과-중첩-테이블-컬럼이-있는-테이블은-사용할수-없음" class="headerlink" title="VARRAY 타입과 중첩 테이블 컬럼이 있는 테이블은 사용할수 없음."></a>VARRAY 타입과 중첩 테이블 컬럼이 있는 테이블은 사용할수 없음.</h2><h2 id="bit-map-index는-사용할수-없음"><a href="#bit-map-index는-사용할수-없음" class="headerlink" title="bit-map-index는 사용할수 없음."></a>bit-map-index는 사용할수 없음.</h2><h2 id="LOB-타입을-가진-테이블-또는-분할-테이블은-사용할수-있음"><a href="#LOB-타입을-가진-테이블-또는-분할-테이블은-사용할수-있음" class="headerlink" title="LOB 타입을 가진 테이블 또는 분할 테이블은 사용할수 있음."></a>LOB 타입을 가진 테이블 또는 분할 테이블은 사용할수 있음.</h2><p>SQL&gt; conn orcl/orcl<br>연결되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT"><a href="#COUNT" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>SQL&gt; conn / as sysdba<br>연결되었습니다.</p>
+<p>SQL&gt; select tablespace_name, status from dba_tablespaces;</p>
+<p>TABLESPACE_NAME                STATUS</p>
+<hr>
+<p>SYSTEM                                  ONLINE<br>UNDOTBS1                               ONLINE<br>SYSAUX                                  ONLINE<br>TEMP                                      ONLINE<br>USERS                                     ONLINE<br>EXAMPLE                                ONLINE<br>TEST                                       ONLINE</p>
+<p>7 개의 행이 선택되었습니다.</p>
+<p>SQL&gt; alter tablespace test read only;         // export transport tablespace 하려면<br>테이블스페이스가 변경되었습니다.              // tablespace를 read only로 변경해야한다</p>
+<p>SQL&gt; exit</p>
+<p>——————– export transport tablespace 시작<br>D:\test&gt;exp ‘/ as sysdba’ file=aaa.dmp transport_tablespace=y tablespaces=test<br>.<br>.<br>엑스포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>D:\test&gt;sqlplus / as sysdba</p>
+<p>SQL&gt; drop tablespace test including contents;</p>
+<p>테이블스페이스가 삭제되었습니다.</p>
+<p>SQL&gt; select <em> from orcl.test;                   // tablespace가 삭제 되어서 table을 찾을수 없다.<br>select </em> from orcl.test<br>              *<br>1행에 오류:<br>ORA-00942: 테이블 또는 뷰가 존재하지 않습니다</p>
+<p>SQL&gt; exit</p>
+<p>————————- aaa.dmp 파일을 이용한 tablespace import<br>D:\test&gt;imp ‘/ as sysdba’ file=aaa.dmp transport_tablespace=y tablespaces=test datafiles=D:\ORACLE\P<br>임포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>D:\test&gt;sqlplus orcl/orcl</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-1"><a href="#COUNT-1" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>SQL&gt; select tablespace_name, status from dba_tablespaces;          </p>
+<p>TABLESPACE_NAME                STATUS</p>
+<hr>
+<p>SYSTEM                         ONLINE<br>UNDOTBS1                       ONLINE<br>SYSAUX                         ONLINE<br>TEMP                           ONLINE<br>USERS                          ONLINE<br>EXAMPLE                        ONLINE<br>TEST                           READ ONLY</p>
+<p>7 개의 행이 선택되었습니다.</p>
+<p>SQL&gt; alter tablespace test read write;               // import 완료 했으므로 다시 online으로 변경</p>
+<p>테이블스페이스가 변경되었습니다.</p>
+<p>————————————- exp/imp table————————————–</p>
+<p>예 ) exp orcl/orcl file=test.dmp log=test.log tables=test<br>예 ) exp orcl/orcl file=test.dmp log=test.log tables=scott.emp<br>예 ) exp orcl/orcl file=test.dmp log=test.log tables=(scott.emp, hr.employees, scott.dept)</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-2"><a href="#COUNT-2" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>D:\test&gt;exp orcl/orcl file=test.dmp log=test.log tables=ss<br>.<br>.<br>엑스포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>####### case 1) table을 drop 한 경우 #######</p>
+<p>SQL&gt; drop table test;</p>
+<p>SQL&gt; select count(<em>) from test;<br>select count(</em>) from test<br>                     *<br>1행에 오류:<br>ORA-00942: 테이블 또는 뷰가 존재하지 않습니다</p>
+<p>D:\test&gt;imp orcl/orcl file=table.dmp tables=test<br>임포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-3"><a href="#COUNT-3" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>####### case 2) table을 delete 한 경우 #######</p>
+<p>SQL&gt; delete test;</p>
+<p>14 행이 삭제되었습니다.</p>
+<p>SQL&gt; select * from test;</p>
+<p>선택된 레코드가 없습니다.</p>
+<p>SQL&gt; commit;</p>
+<p>커밋이 완료되었습니다.</p>
+<p>D:\test&gt;imp orcl/orcl file=table.dmp tables=test<br>.<br>.<br> “CREATE TABLE “TEST” (“EMPNO” NUMBER(4, 0), “ENAME” VARCHAR2(10), “JOB” VARC”<br> “HAR2(9), “MGR” NUMBER(4, 0), “HIREDATE” DATE, “SAL” NUMBER(7, 2), “COMM” NU”<br> “MBER(7, 2), “DEPTNO” NUMBER(2, 0))  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRA”<br> “NS 255 STORAGE(INITIAL 65536 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFA”<br> “ULT)                   LOGGING NOCOMPRESS”<br>경고와 함께 임포트가 정상 종료되었습니다.</p>
+<p>// imp table을 할때 create table 구문이 들어가 있다.<br>// 즉, table의 row는 없더라도 같은 이름의 table이 있다면 import 되지 않는다.<br>// 이러한 경우 ignore=y 옵션을 사용한다.</p>
+<p>D:\test&gt;imp orcl/orcl file=table.dmp tables=test ignore=y</p>
+<p>임포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-4"><a href="#COUNT-4" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>####### case 2) data가 들어있는 table에 ignore 옵션을 사용할 경우 #######<br>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-5"><a href="#COUNT-5" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>D:\test&gt;imp orcl/orcl file=table.dmp tables=test ignore=y</p>
+<p>임포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-6"><a href="#COUNT-6" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>28
+</code></pre><p>// row수가 14개 더 늘어난걸 볼수있다.<br>// ignore 옵션은 해당 테이블에 중복 데이터가 있으면 해당 데이터를 덮어 쓰는게 아니다.</p>
+<p>———————————– exp/imp owner —————————————</p>
+<p>D:\test&gt;exp ‘/ as sysdba’ file=user.dmp log=user.log owner=orcl</p>
+<p>엑스포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>SQL&gt; drop user orcl cascade;                    // 해당 유저와 유저의 데이터까지 모두 삭제.</p>
+<p>사용자가 삭제되었습니다.</p>
+<p>SQL&gt; create user orcl identified by orcl<br>  2  default tablespace test;</p>
+<p>사용자가 생성되었습니다.</p>
+<p>SQL&gt; grant connect, resource to orcl;</p>
+<p>권한이 부여되었습니다.</p>
+<p>D:\test&gt;imp ‘/ as sysdba’ file=user.dmp fromuser=orcl touser=orcl</p>
+<p>경고와 함께 임포트가 정상 종료되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-7"><a href="#COUNT-7" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>—————————— exp/imp query ————————————</p>
+<h2 id="export시-쿼리-문을-사용하여-해당-table내-원하는-데이터만-추출할수-있다"><a href="#export시-쿼리-문을-사용하여-해당-table내-원하는-데이터만-추출할수-있다" class="headerlink" title="export시 쿼리 문을 사용하여 해당 table내 원하는 데이터만 추출할수 있다."></a>export시 쿼리 문을 사용하여 해당 table내 원하는 데이터만 추출할수 있다.</h2><ul>
+<li>테이블 레벨의 export 명령어에서만 가능하다.</li>
+<li>Direct 옵션과 함께 사용될 수 없다.</li>
+<li>Nested 테이블을 갖는 테이블에는 적용할 수 없다.</li>
+<li>Partition 테이블에 대한 export에도 적용가능하다.</li>
+<li>Import 명령에는 적용되지 않는다.</li>
+</ul>
+<p>D:\test&gt;exp orcl/orcl file=dump.emp log=dump.log tables=orcl.test query=’where empno=7788’</p>
+<p>엑스포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>———————————— 참고 사항 ———————————————</p>
+<h2 id="UNIX-reserved-characters-“-‘-lt-등-를-사용하는-경우에는-escape-‘-’-을-반드시-사용해야-한다"><a href="#UNIX-reserved-characters-“-‘-lt-등-를-사용하는-경우에는-escape-‘-’-을-반드시-사용해야-한다" class="headerlink" title="UNIX reserved characters( “, ‘, ,&lt; .. 등)를 사용하는 경우에는 escape (‘\’) 을 반드시 사용해야 한다."></a>UNIX reserved characters( “, ‘, ,&lt; .. 등)를 사용하는 경우에는 escape (‘\’) 을 반드시 사용해야 한다.</h2><p>—– win<br>예 ) exp orcl/orcl file=dump.emp log=dump.log tables=orcl.test query=\”where ename like ‘SCOT%’\”<br>—– UNIX<br>예 ) exp orcl/orcl file=dump.emp log=dump.log tables=orcl.test query=\”where ename like \’SCOT%\’\”</p>
+<h2 id="command-line에서-query-내에-‘-”-을사용하지-않는-다면-‘나-“-으로-query-option을-사용할수-있다"><a href="#command-line에서-query-내에-‘-”-을사용하지-않는-다면-‘나-“-으로-query-option을-사용할수-있다" class="headerlink" title="command line에서 query 내에 ‘,” 을사용하지 않는 다면 ‘나 “ 으로 query option을 사용할수 있다"></a>command line에서 query 내에 ‘,” 을사용하지 않는 다면 ‘나 “ 으로 query option을 사용할수 있다</h2><p>   query=\’where deptno = 20\’<br>   query=\”where deptno = 20\”<br>   query=\’where deptno \&lt; 2\’<br>   (이 경우  single 이나  double quotes 을 둘다 사용할수 있다.)</p>
+<h2 id="command-line에서-export-option을-사용할때는-반드시-escape가-있어야-하나"><a href="#command-line에서-export-option을-사용할때는-반드시-escape가-있어야-하나" class="headerlink" title="command line에서 export option을 사용할때는 반드시 escape가 있어야 하나"></a>command line에서 export option을 사용할때는 반드시 escape가 있어야 하나</h2><p>   parfile을 사용할때는 eacape이 불필요하다.</p>
+<p>parfile을 사용하는 경우에는 다음과 같이 단순하게  사용이 가능하다.<br>query=’where deptno = 20’<br>query=”where deptno = 20”<br>query=’where deptno &lt; 20’</p>
+<hr>
+<p>########### case 1) ###########<br>SQL&gt; drop table test;</p>
+<p>D:\test&gt;imp orcl/orcl file=dump.emp tables=test</p>
+<p>임포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-8"><a href="#COUNT-8" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>1
+</code></pre><p>########### case 2) ###########<br>SQL&gt; delete from test where empno=7788;</p>
+<p>SQL&gt; commit;</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-9"><a href="#COUNT-9" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>13
+</code></pre><p>D:\test&gt;imp orcl/orcl file=table.dmp tables=test ignore=y</p>
+<p>임포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-10"><a href="#COUNT-10" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>// 실제로 imp된 7788사원은 해당 테이블의 가장 마지막 로우에 import 된다.</p>
+<h2 id="그렇다면-table-단위로-emp-하고-query로-뽑아서-import-할수-있을까"><a href="#그렇다면-table-단위로-emp-하고-query로-뽑아서-import-할수-있을까" class="headerlink" title="그렇다면 table 단위로 emp 하고 query로 뽑아서 import 할수 있을까?"></a>그렇다면 table 단위로 emp 하고 query로 뽑아서 import 할수 있을까?</h2><p>   -&gt; 정답은 안된다. 궁금하면 해보시라.<br>   LRM-00101: 알 수 없는 ‘query’ 매개변수 이름. 이런 메세지가 기다리고 있을것이다.</p>
+<p>———————————- exp/imp parfile 방식 ———————————–</p>
+<h2 id="parfile-안에-해당-exp-imp-설정을-작성한후-parfile을-이용해서-exp-imp를-할수있다"><a href="#parfile-안에-해당-exp-imp-설정을-작성한후-parfile을-이용해서-exp-imp를-할수있다" class="headerlink" title="parfile 안에 해당 exp/imp 설정을 작성한후 parfile을 이용해서 exp/imp를 할수있다."></a>parfile 안에 해당 exp/imp 설정을 작성한후 parfile을 이용해서 exp/imp를 할수있다.</h2><p>########### exp case 1<br>file=full.dmp<br>log=full.log<br>full=y<br>direct=y<br>.<br>.</p>
+<p>########### exp case 2<br>file=emp.dmp<br>log=emp.log<br>tables=scott.emp<br>direct=y<br>.<br>.</p>
+<p>########### exp case 3<br>file=scott.dmp<br>log=scott.log<br>owner=scott<br>direct=y<br>.<br>.</p>
+<p>########### exp case 4<br>file=query.dmp<br>log=query.log<br>tables=scott.emp<br>query=”where ename like ‘SCOT%’”<br>direct=y<br>.<br>.</p>
+<hr>
+<p>// 윈도우 이기 때문에 노트 패드로 pa.par 파일을 작성 한뒤 실습 내용임</p>
+<p>D:\test&gt;more pa.par<br>file=table.dmp<br>log=table.log<br>tables=orcl.test<br>direct=y</p>
+<p>D:\test&gt;exp test/test parfile=pa.par</p>
+<p>엑스포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>D:\test&gt;more impa.par<br>file=table.dmp<br>tables=test</p>
+<p>D:\test&gt;imp orcl/orcl parfile=impa.par</p>
+<p>임포트가 경고 없이 정상적으로 종료되었습니다.</p>
+<p>SQL&gt; select count(*) from test;</p>
+<h2 id="COUNT-11"><a href="#COUNT-11" class="headerlink" title="  COUNT(*)"></a>  COUNT(*)</h2><pre><code>14
+</code></pre><p>————————————— DIALOG 방식 ———————————–</p>
+<p>D:\test&gt;exp</p>
+<p>Export: Release 10.2.0.1.0 - Production on 수 4월 15 15:54:52 2009</p>
+<p>Copyright (c) 1982, 2005, Oracle.  All rights reserved.</p>
+<p>사용자명: test<br>암호:</p>
+<p>다음에 접속됨: Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production<br>With the Partitioning, OLAP and Data Mining options<br>배열 인출 버퍼 크기 입력: 4096 &gt; 409</p>
+<p>엑스포트 파일: EXPDAT.DMP &gt; 111</p>
+<p>(1)E(전체 데이터베이스), (2)U(사용자), 또는 (3)T(테이블): (2)U &gt; 1</p>
+<p>권한부여 엑스포트 (yes/no): yes &gt; yes</p>
+<p>테이블 데이터 엑스포트 (yes/no): yes &gt; yes</p>
+<p>확장 영역 압축 (yes/no): yes &gt; yes</p>
+<p>KO16MSWIN949 문자 설정과 AL16UTF16 NCHAR 문자 설정에서 엑스포트가 종료되었습니다</p>
+<p>전체 데이터베이스를 엑스포트하려고 합니다 …<br>테이블 정의 엑스포트 중<br>프로파일 엑스포트 중<br>사용자 정의 엑스포트 중<br>.<br>.<br>.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/01/How-to-kill-Process-by-Port-Number-in-Win-7/" rel="next" title="How to kill Process by Port Number in Win 7">
+                <i class="fa fa-chevron-left"></i> How to kill Process by Port Number in Win 7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar/Steve_Profile.png"
+                alt="Steve No" />
+            
+              <p class="site-author-name" itemprop="name">Steve No</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/jeaniedaddy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jeaniedaddy@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#export"><span class="nav-number">1.</span> <span class="nav-text">export</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#export-작업시-주의-사항"><span class="nav-number">2.</span> <span class="nav-text">export 작업시 주의 사항</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import"><span class="nav-number">3.</span> <span class="nav-text">import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import-작업시-주의-사항"><span class="nav-number">4.</span> <span class="nav-text">import 작업시 주의 사항</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exp-백업의-이름을-잘-정해야-한다-해당-백업-파일을-언제-누가-보든-쉽게-이해할수있도록-룰을-잘-정해야한다"><span class="nav-number">5.</span> <span class="nav-text">exp 백업의 이름을 잘 정해야 한다. 해당 백업 파일을 언제 누가 보든 쉽게 이해할수있도록 룰을 잘 정해야한다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exp의-경우-datapump와-다르게-디렉토리-지정이-없다"><span class="nav-number">6.</span> <span class="nav-text">exp의 경우 datapump와 다르게 디렉토리 지정이 없다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exp-할-대상-경로로-이동해-실행하거나"><span class="nav-number">7.</span> <span class="nav-text">exp 할 대상 경로로 이동해 실행하거나,</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-경로명-test-dmp-log-경로명-test-log-와-같이-직접-지정해야한다"><span class="nav-number">8.</span> <span class="nav-text">file=[ 경로명 ]\test.dmp , log=[ 경로명 ]\test.log 와 같이 직접 지정해야한다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transport-tablespace를-사용하려면-해당-tablespace를-read-only-시켜야-한다"><span class="nav-number">9.</span> <span class="nav-text">transport_tablespace를 사용하려면 해당 tablespace를 read only 시켜야 한다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tablespace내-하나의-특정-데이터-파일만-이동-할수-없다"><span class="nav-number">10.</span> <span class="nav-text">tablespace내 하나의 특정 데이터 파일만 이동 할수 없다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#같은-환경을-가진-OS에서만-가능함"><span class="nav-number">11.</span> <span class="nav-text">같은 환경을 가진 OS에서만 가능함.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#오라클-8i-이상-사용-가능"><span class="nav-number">12.</span> <span class="nav-text">오라클 8i 이상 사용 가능.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DB-BLOCK-SIZE-파라메터의-값이-같아야-함"><span class="nav-number">13.</span> <span class="nav-text">DB_BLOCK_SIZE 파라메터의 값이 같아야 함.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#같은-언어타입을-사용해야함"><span class="nav-number">14.</span> <span class="nav-text">같은 언어타입을 사용해야함.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VARRAY-타입과-중첩-테이블-컬럼이-있는-테이블은-사용할수-없음"><span class="nav-number">15.</span> <span class="nav-text">VARRAY 타입과 중첩 테이블 컬럼이 있는 테이블은 사용할수 없음.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bit-map-index는-사용할수-없음"><span class="nav-number">16.</span> <span class="nav-text">bit-map-index는 사용할수 없음.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOB-타입을-가진-테이블-또는-분할-테이블은-사용할수-있음"><span class="nav-number">17.</span> <span class="nav-text">LOB 타입을 가진 테이블 또는 분할 테이블은 사용할수 있음.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT"><span class="nav-number">18.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-1"><span class="nav-number">19.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-2"><span class="nav-number">20.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-3"><span class="nav-number">21.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-4"><span class="nav-number">22.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-5"><span class="nav-number">23.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-6"><span class="nav-number">24.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-7"><span class="nav-number">25.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#export시-쿼리-문을-사용하여-해당-table내-원하는-데이터만-추출할수-있다"><span class="nav-number">26.</span> <span class="nav-text">export시 쿼리 문을 사용하여 해당 table내 원하는 데이터만 추출할수 있다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIX-reserved-characters-“-‘-lt-등-를-사용하는-경우에는-escape-‘-’-을-반드시-사용해야-한다"><span class="nav-number">27.</span> <span class="nav-text">UNIX reserved characters( “, ‘, ,&lt; .. 등)를 사용하는 경우에는 escape (‘\’) 을 반드시 사용해야 한다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#command-line에서-query-내에-‘-”-을사용하지-않는-다면-‘나-“-으로-query-option을-사용할수-있다"><span class="nav-number">28.</span> <span class="nav-text">command line에서 query 내에 ‘,” 을사용하지 않는 다면 ‘나 “ 으로 query option을 사용할수 있다</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#command-line에서-export-option을-사용할때는-반드시-escape가-있어야-하나"><span class="nav-number">29.</span> <span class="nav-text">command line에서 export option을 사용할때는 반드시 escape가 있어야 하나</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-8"><span class="nav-number">30.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-9"><span class="nav-number">31.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-10"><span class="nav-number">32.</span> <span class="nav-text">  COUNT(*)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#그렇다면-table-단위로-emp-하고-query로-뽑아서-import-할수-있을까"><span class="nav-number">33.</span> <span class="nav-text">그렇다면 table 단위로 emp 하고 query로 뽑아서 import 할수 있을까?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parfile-안에-해당-exp-imp-설정을-작성한후-parfile을-이용해서-exp-imp를-할수있다"><span class="nav-number">34.</span> <span class="nav-text">parfile 안에 해당 exp/imp 설정을 작성한후 parfile을 이용해서 exp/imp를 할수있다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-11"><span class="nav-number">35.</span> <span class="nav-text">  COUNT(*)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Steve No</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://jeaniedaddy.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://jeaniedaddy.github.io/2019/10/31/oracle-exp-imp-excercise/';
+          this.page.identifier = '2019/10/31/oracle-exp-imp-excercise/';
+          this.page.title = 'oracle-exp-imp-excercise';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://jeaniedaddy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
